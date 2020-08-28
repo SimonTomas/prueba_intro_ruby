@@ -85,11 +85,7 @@ def photos_count(api,api_key)
             hash[ph_info['camera']['name']] = 0
         end
         data['photos'].each do |ph_info|
-            hash['FHAZ'] += 1 if ph_info['camera']['name'] == 'FHAZ'
-            hash['RHAZ'] += 1 if ph_info['camera']['name'] == 'RHAZ'
-            hash['MAST'] += 1 if ph_info['camera']['name'] == 'MAST'
-            hash['CHEMCAM'] += 1 if ph_info['camera']['name'] == 'CHEMCAM'
-            hash['NAVCAM'] += 1 if ph_info['camera']['name'] == 'NAVCAM'
+            hash[ph_info['camera']['name']] += 1 if ph_info['camera']['name'] == ph_info['camera']['name']
         end
     print hash
 end
