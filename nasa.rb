@@ -79,26 +79,18 @@ def foot
 end
 
 def photos_count(api,api_key)
-    hash = {}
-    hash['FHAZ'] = 0
-    hash['RHAZ'] = 0
-    hash['MAST'] = 0
-    hash['CHEMCAM'] = 0
-    hash['NAVCAM'] = 0
     data = request(api,api_key)
-    data['photos'].each do |ph_info|
-        if ph_info['camera']['name'] == 'FHAZ'
-            hash['FHAZ'] += 1
-        elsif ph_info['camera']['name'] == 'RHAZ'
-            hash['RHAZ'] += 1
-        elsif ph_info['camera']['name'] == 'MAST'
-            hash['MAST'] += 1
-        elsif ph_info['camera']['name'] == 'CHEMCAM'
-            hash['CHEMCAM'] += 1
-        elsif ph_info['camera']['name'] == 'NAVCAM'
-            hash['NAVCAM'] += 1
+        hash = {}
+        data['photos'].each do |ph_info|
+            hash[ph_info['camera']['name']] = 0
         end
-    end
+        data['photos'].each do |ph_info|
+            hash['FHAZ'] += 1 if ph_info['camera']['name'] == 'FHAZ'
+            hash['RHAZ'] += 1 if ph_info['camera']['name'] == 'RHAZ'
+            hash['MAST'] += 1 if ph_info['camera']['name'] == 'MAST'
+            hash['CHEMCAM'] += 1 if ph_info['camera']['name'] == 'CHEMCAM'
+            hash['NAVCAM'] += 1 if ph_info['camera']['name'] == 'NAVCAM'
+        end
     print hash
 end
 photos_count(api,key)
