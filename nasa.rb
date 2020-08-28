@@ -18,11 +18,22 @@ end
 
 def build_web_page(api,api_key)
     data = request(api,api_key)
-    img_nasa = "\t\t<ul>\n"
+    img_nasa = "\t\t<div class='row'>\n"
+    # img_nasa = "\t\t<ul>\n"
     data['photos'].each do |photos_info|
-        img_nasa += "\t\t\t<li><img src='#{photos_info['img_src']}'></li>\n"
+        
+    img_nasa += 
+    "\t\t\t<div class='col-md-4'>    
+        \t\t<div class='card mb-3 mx-auto'>
+            \t\t<img src='#{photos_info['img_src']}' class='card-img-top' alt='#{photos_info['id']}'>
+            \t\t<div class='card-body'>
+                \t\t<h5 class='card-title text-center font-weight-bold'>ID: #{photos_info['id']}</h5>
+                \t\t<p class='card-text text-center'>Foto obtenida de la Cámara #{photos_info['camera']['name']}</p>
+            \t\t</div>
+        \t\t</div>
+    \t\t</div>\n"
     end
-    img_nasa += "\t\t</ul>"
+    img_nasa += "</div>\n"
 end
 
 def foot
