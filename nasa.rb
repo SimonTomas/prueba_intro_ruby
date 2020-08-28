@@ -30,8 +30,8 @@ def navbar
                 <div class='collapse navbar-collapse' id='navbarNavAltMarkup'>
                     <div class='navbar-nav ml-auto'>
                         <a class='nav-link' href='#'>Home</a>
-                        <a class='nav-link' href='#'>Features</a>
-                        <a class='nav-link' href='#'>Pricing</a>
+                        <a class='nav-link' href='#'>About</a>
+                        <a class='nav-link' href='#'>Contact</a>
                     </div>
                 </div>
             </div>
@@ -78,19 +78,30 @@ def foot
 </html>"
 end
 
-# def photos_count(api,api_key)
-#     data = request(api,api_key)
-#     hash = {}
-#     data['photos'].each do |ph_info|
-#         hash[ph_info['camera']['name']] = 1
-#         if ph_info['camera']['name'] == 'MAST'
-#             hash[ph_info['camera']['name']] += 1
-#         end
-#     end
-#     print hash
-
-# end
-# photos_count(api,key)
+def photos_count(api,api_key)
+    hash = {}
+    hash['FHAZ'] = 0
+    hash['RHAZ'] = 0
+    hash['MAST'] = 0
+    hash['CHEMCAM'] = 0
+    hash['NAVCAM'] = 0
+    data = request(api,api_key)
+    data['photos'].each do |ph_info|
+        if ph_info['camera']['name'] == 'FHAZ'
+            hash['FHAZ'] += 1
+        elsif ph_info['camera']['name'] == 'RHAZ'
+            hash['RHAZ'] += 1
+        elsif ph_info['camera']['name'] == 'MAST'
+            hash['MAST'] += 1
+        elsif ph_info['camera']['name'] == 'CHEMCAM'
+            hash['CHEMCAM'] += 1
+        elsif ph_info['camera']['name'] == 'NAVCAM'
+            hash['NAVCAM'] += 1
+        end
+    end
+    print hash
+end
+photos_count(api,key)
 
 nasa = head() + navbar() + build_web_page(api, key) + footer() + foot()
 File.write('index.html', nasa)
