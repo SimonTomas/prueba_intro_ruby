@@ -11,6 +11,10 @@ def head
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
         <!-- Bootstrap CSS -->
         <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css' integrity='sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z' crossorigin='anonymous'>
+        <!-- Favicon -->
+        <link rel='shortcut icon' href='assets/img/nasa-navbar.png'>
+        <!-- Font Awesome -->
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
         <title>Nasa</title>
 \t</head>
 \t<body>\n"
@@ -51,7 +55,17 @@ def build_web_page(api,api_key)
         \t\t</div>
     \t\t</div>\n"
     end
-    img_nasa += "</div>\n"
+    img_nasa += "\t\t</div>\n"
+end
+
+def footer
+    "\t\t<footer class='bg-dark d-flex justify-content-end align-items-center' style='height: 100px; width: 100%'>
+            <div class='my-auto'>
+                <a href='https://www.facebook.com/NASA/' class='text-light'><i class='fa fa-facebook-square fa-3x px-3' aria-hidden='true'></i></a>
+                <a href='https://www.instagram.com/nasa/?hl=es-la' class='text-light'><i class='fa fa-instagram fa-3x px-3' aria-hidden='true'></i></a>
+                <a href='https://twitter.com/nasa' class='text-light'><i class='fa fa-twitter-square fa-3x px-3' aria-hidden='true'></i></a>
+            <div>
+    \t</footer>\n\n"
 end
 
 def foot
@@ -78,5 +92,5 @@ end
 # end
 # photos_count(api,key)
 
-nasa = head() + navbar() + build_web_page(api, key) + foot()
+nasa = head() + navbar() + build_web_page(api, key) + footer() + foot()
 File.write('index.html', nasa)
