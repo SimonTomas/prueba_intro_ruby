@@ -16,6 +16,24 @@ def head
 \t<body>\n"
 end
 
+def navbar
+    "\t\t<nav class='navbar navbar-expand-lg navbar-dark bg-dark mb-3'>
+            <div class='container'>
+                <a class='navbar-brand' href='#'><img src='assets/img/nasa-navbar.png' style='width:75px; height:75px'></a>
+                <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
+                    <span class='navbar-toggler-icon'></span>
+                </button>
+                <div class='collapse navbar-collapse' id='navbarNavAltMarkup'>
+                    <div class='navbar-nav ml-auto'>
+                        <a class='nav-link' href='#'>Home</a>
+                        <a class='nav-link' href='#'>Features</a>
+                        <a class='nav-link' href='#'>Pricing</a>
+                    </div>
+                </div>
+            </div>
+\t\t</nav>\n"
+end
+
 def build_web_page(api,api_key)
     data = request(api,api_key)
     img_nasa = "\t\t<div class='row'>\n"
@@ -46,5 +64,19 @@ def foot
 </html>"
 end
 
-nasa = head() + build_web_page(api, key) + foot()
+# def photos_count(api,api_key)
+#     data = request(api,api_key)
+#     hash = {}
+#     data['photos'].each do |ph_info|
+#         hash[ph_info['camera']['name']] = 1
+#         if ph_info['camera']['name'] == 'MAST'
+#             hash[ph_info['camera']['name']] += 1
+#         end
+#     end
+#     print hash
+
+# end
+# photos_count(api,key)
+
+nasa = head() + navbar() + build_web_page(api, key) + foot()
 File.write('index.html', nasa)
