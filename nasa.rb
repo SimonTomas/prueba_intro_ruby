@@ -15,13 +15,15 @@ def head
         <link rel='shortcut icon' href='assets/img/nasa-navbar.png'>
         <!-- Font Awesome -->
         <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+        <!-- Estilos CSS -->
+		<link rel='stylesheet' href='assets/css/style.css'>
         <title>Nasa</title>
 \t</head>
 \t<body>\n"
 end
 
 def navbar
-    "\t\t<nav class='navbar navbar-expand-lg navbar-dark bg-dark mb-3'>
+    "\t\t<nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
             <div class='container'>
                 <a class='navbar-brand' href='#'><img src='assets/img/nasa-navbar.png' style='width:75px; height:75px'></a>
                 <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarNavAltMarkup' aria-controls='navbarNavAltMarkup' aria-expanded='false' aria-label='Toggle navigation'>
@@ -38,24 +40,37 @@ def navbar
 \t\t</nav>\n"
 end
 
+def header
+"\t\t<header>
+            <figure>
+                <img src='assets/img/header.jpg' style='width:100%; height:100vh'>
+            </figure>
+        </header>\n"
+end
+
 def build_web_page(api,api_key)
     data = request(api,api_key)
-    img_nasa = "\t\t<div class='row'>\n"
+    img_nasa = 
+        "\t\t<h1 class='text-center text-light py-3 font-weight-bold'>Mars Rover Photos</h1>
+        <div class='container'>
+        \t<div class='row'>\n"
     # img_nasa = "\t\t<ul>\n"
     data['photos'].each do |photos_info|
         
     img_nasa += 
-    "\t\t\t<div class='col-md-4'>    
-        \t\t<div class='card mb-3 mx-auto'>
-            \t\t<img src='#{photos_info['img_src']}' class='card-img-top' alt='#{photos_info['id']}'>
-            \t\t<div class='card-body'>
-                \t\t<h5 class='card-title text-center font-weight-bold'>ID: #{photos_info['id']}</h5>
-                \t\t<p class='card-text text-center'>Foto obtenida de la Cámara #{photos_info['camera']['name']}</p>
-            \t\t</div>
-        \t\t</div>
-    \t\t</div>\n"
+    "\t\t\t\t<div class='col-md-4'>    
+        \t\t\t<div class='card mb-3 mx-auto'>
+            \t\t\t<img src='#{photos_info['img_src']}' class='card-img-top' alt='#{photos_info['id']}' style='height:300px'>
+            \t\t\t<div class='card-body'>
+                \t\t\t<h5 class='card-title text-center font-weight-bold'>ID: #{photos_info['id']}</h5>
+                \t\t\t<p class='card-text text-center'>Foto obtenida de la Cámara #{photos_info['camera']['name']}</p>
+            \t\t\t</div>
+        \t\t\t</div>
+    \t\t\t</div>\n"
     end
-    img_nasa += "\t\t</div>\n"
+    img_nasa += 
+    "\t\t\t</div>
+    \t</div>\n"
 end
 
 def footer
@@ -91,5 +106,5 @@ def photos_count(api,api_key)
 end
 photos_count(api,key)
 
-nasa = head() + navbar() + build_web_page(api, key) + footer() + foot()
+nasa = head() + navbar() + header() + build_web_page(api, key) + footer() + foot()
 File.write('index.html', nasa)
